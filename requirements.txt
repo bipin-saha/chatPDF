@@ -1,0 +1,9 @@
+google-generativeai
+huggingface-hub
+numpy
+pandas
+pillow
+PyPDF2
+python-dotenv
+streamlit
+pypdfium2
