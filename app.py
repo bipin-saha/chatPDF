@@ -4,6 +4,8 @@ import google.generativeai as genai
 from text_ext import extract_text_from_pdf
 import base64
 from dotenv import load_dotenv
+from chat_mode import chat_response
+from PIL import Image
 
 load_dotenv()
 
@@ -14,26 +16,29 @@ vision_model=genai.GenerativeModel("gemini-pro-vision")
 chat = text_model.start_chat(history=[])
 
 def get_gemini_response(input, pdf_content):
-    text_model = genai.GenerativeModel('gemini-pro')
     response = text_model.generate_content([input, pdf_content])
     return response.text
 
-def get_gemini_vision_response(input, pdf_content):
-    text_model = genai.GenerativeModel('gemini-pro')
-    response = text_model.generate_content([input, pdf_content])
+def get_gemini_vision_response(input, image, pdf_content):
+    response = vision_model.generate_content([input, image, pdf_content])
     return response.text
 
 ##initialize our streamlit app
 st.set_page_config(page_title="Gemini ChatPDF Application", layout="wide")
-st.subheader("Chat with PDF")
+#st.subheader("Chat with PDF")
+# Add some space at the top to center the subheader
+#st.markdown("<h1 style='text-align: center;'> </h1>", unsafe_allow_html=True)
+st.markdown("<h2 style='text-align: center;'>chatPDF</h2>", unsafe_allow_html=True)
+
+
 
 with st.sidebar:
         st.title("Upload PDF:")
         research_field = st.text_input("Research Field: ",key="research_field", placeholder="Enter research fields with commas")
         uploaded_file = st.file_uploader("", type=["pdf"])
-        option = st.selectbox('Select Mode', ('Chat', 'Graph and Table', 'Code'))
-        print(option)
-        submit = st.button("Submit", type="primary")
+        option = st.selectbox('Select Mode', ('', 'Chat', 'Graph and Table', 'Code'))
+        #print(option)
+        #submit = st.button("Submit", type="primary")
         #submit1 = st.button("Resume Assesmet")
         #submit2 = st.button("Possible Improvements")
         #submit3 = st.button("Percentage Match")
@@ -46,23 +51,25 @@ else:
         file.write(uploaded_file.getvalue())
     
     
-initial_prompt = f"""
-Imagine you are a seasoned researcher specializing in the field of {research_field}. 
-You are presented with a research paper within your domain. Evaluate its working methodology 
-and discuss its research impact through concise bullet points. Conclude by summarizing the 
-research paper and propose three questions for the user based on the paper's context. Finnaly 
-remeber the research paper context for the next questions.
 
-Output will be as,
-Research Paper Title
-Research Summary
-Methodology
-Research Impact
-Suggested Questions"""
 
-q_input=st.text_input("Question: ",key="input", placeholder="Ask your question")
-ask=st.button("Ask", type="primary")
+q_input=st.chat_input(key="input", placeholder="Ask your question")
+#ask=st.button("Ask", type="primary")
 
+def input_image_setup(uploaded_file):
+    if uploaded_file is not None:
+        bytes_data = uploaded_file.getvalue()
+        
+        image_parts = [
+            {
+                "mime_type": uploaded_file.type, 
+                "data": bytes_data
+            }
+        ]
+        return image_parts
+   
+    else:
+        raise FileNotFoundError("No file uploaded")
 
 
 pdf_file_path = "Uploaded/paper.pdf"
@@ -73,8 +80,21 @@ if uploaded_file:
 else:
     pdf_text = ""
 
+initial_prompt = f"""
+Imagine you are a seasoned researcher specializing in the field of {research_field}. 
+You are presented with a research paper within your domain. Evaluate its working methodology 
+and discuss its research impact through concise bullet points. Conclude by summarizing the 
+research paper and propose three questions for the user based on the paper's context. Finnaly 
+remeber the research paper context for the next questions.
 
-if submit:
+Output will be as,
+Research Paper Title \n
+Research Summary \n
+Methodology \n
+Research Impact \n
+Suggested Questions"""
+
+if option=='':
     with st.spinner("Processing..."):
         response = get_gemini_response(initial_prompt, pdf_text)
         st.write(response)
@@ -98,19 +118,22 @@ explain the code in by each and every steps. \n \n \n"""
 if q_input is None:
     st.stop()
 else:
-    if ask and q_input and option=="Chat":
+    if q_input and option=="Chat":
         with st.spinner("Processing..."):
             mod_prompt = question_prompt + pdf_text
             response = get_gemini_response(mod_prompt, q_input)
-            st.write(response)
+            chat_response(q_input, response)
+            #st.write(response)
     
-    elif ask and q_input and option=="Code":
+    elif q_input and option=="Code":
+        image_file = "pro-vision-dummy.jpg"
+        image = Image.open(image_file)
         with st.spinner("Processing..."):
             mod_prompt = code_prompt + pdf_text
             response = get_gemini_response(mod_prompt, q_input)
             st.write(response)
 
-    elif ask and q_input and option=="Graph and Table":
+    elif q_input and option=="Graph and Table":
         with st.spinner("Processing..."):
             #mod_prompt = code_prompt + pdf_text
             #response = get_gemini_response(mod_prompt, q_input)
