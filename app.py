@@ -127,7 +127,7 @@ else:
     
     elif q_input and option=="Code":
         image_file = "pro-vision-dummy.jpg"
-        image = Image.open(image_file)
+        #image = Image.open(image_file)
         with st.spinner("Processing..."):
             mod_prompt = code_prompt + pdf_text
             response = get_gemini_response(mod_prompt, q_input)
