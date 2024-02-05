@@ -108,32 +108,32 @@ research paper and propose three questions for the user based on the paper's con
 the research paper context for the next questions.
 
 Output will be as,
-Title\n 
-Research Summary\n 
-Methods or Models Used\n
+Title:\n 
+Research Summary:\n
+Methods or Models Used:\n
 Dataset Used\n 
-- Name:\n 
-- Size:\n 
-  - Number of Images:\n 
-  - Resolution:\n 
-  - Instances:\n 
+- Name
+- Size
+  - Number of Images
+  - Resolution
+  - Instances
 Dataset Condition:\n 
-- Day, Night, Mix, Weather:\n 
-Domain Adaptation Technique:\n
-- Used: (is it used or not)\n 
-- Method:\n 
-  - D2N (Day to Night)\n 
-  - N2D (Night to Day)\n 
-  - Mix Image Generation\n 
-Output Image Resolution\n 
-- Resolution:\n 
-- Upsampling Technique Used:\n 
+- Day, Night, Mix, Weather
+Domain Adaptation Technique:
+- Used: (is it used or not) 
+- Method:
+  - D2N (Day to Night) 
+  - N2D (Night to Day) 
+  - Mix Image Generation
+Output Image Resolution:\n
+- Resolution
+- Upsampling Technique Used 
 Experiment Process and Objectives:\n
-- Steps:\n 
-- Objectives:\n 
+- Steps:
+- Objectives:
 Detection/Segmentation Models:\n
 Performance Improvements:\n
-- Tradeoff:\n 
+- Tradeoff:
 Suggested Questions:\n
 """
 
