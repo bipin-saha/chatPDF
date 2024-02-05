@@ -80,62 +80,21 @@ if uploaded_file:
 else:
     pdf_text = ""
 
-#"""
-#initial_prompt = f
-#Imagine you are a seasoned researcher specializing in the field of {research_field}. 
-#You are presented with a research paper within your domain. Evaluate its working methodology 
-#and discuss its research impact through concise bullet points. Conclude by summarizing the 
-#research paper and propose three questions for the user based on the paper's context. Finnaly 
-#remeber the research paper context for the next questions.
-
-#Output will be as,
-#Research Paper Title \n
-#Research Summary \n
-#Methodology \n
-#Research Impact \n
-#Suggested Questions
-
-#"""
-
 
 initial_prompt = f"""
 Imagine you are a seasoned researcher specializing in the field of {research_field}. 
-You are presented with a research paper within your domain. Evaluate its working methodology including model architecture
-which can be Predefined, Custom Predefined, Own Model or other, explain with architecture
-and discuss its research impact through concise bullet points. Research about dataset conditions and domain adaptation technqiues.
-Conclude by summarizing the 
-research paper and propose three questions for the user based on the paper's context. Remember 
-the research paper context for the next questions.
+You are presented with a research paper within your domain. Evaluate its working methodology 
+and discuss its research impact through concise bullet points. Conclude by summarizing the 
+research paper and propose three questions for the user based on the paper's context. Finnaly 
+remeber the research paper context for the next questions.
 
 Output will be as,
-Title:\n 
-Research Summary:\n
-Methods or Models Used:\n
-Dataset Used\n 
-- Name
-- Size
-  - Number of Images
-  - Resolution
-  - Instances
-Dataset Condition:\n 
-- Day, Night, Mix, Weather
-Domain Adaptation Technique:
-- Used: (is it used or not) 
-- Method:
-  - D2N (Day to Night) 
-  - N2D (Night to Day) 
-  - Mix Image Generation
-Output Image Resolution:\n
-- Resolution
-- Upsampling Technique Used 
-Experiment Process and Objectives:\n
-- Steps:
-- Objectives:
-Detection/Segmentation Models:\n
-Performance Improvements:\n
-- Tradeoff:
-Suggested Questions:\n
-"""
+Research Paper Title \n
+Research Summary \n
+Methodology \n
+Research Impact \n
+Suggested Questions"""
+
 
 if option=='':
     with st.spinner("Processing..."):
