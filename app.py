@@ -110,31 +110,31 @@ the research paper context for the next questions.
 Output will be as,
 Title\n 
 Research Summary\n 
-Methods or Models Used  
-Dataset Used 
-- Name: 
-- Size: 
-  - Number of Images: 
-  - Resolution: 
-  - Instances: 
-Dataset Condition 
-- Day, Night, Mix, Weather: 
-Domain Adaptation Technique:
-- Used (or not) 
-- Method: 
-  - D2N (Day to Night) 
-  - N2D (Night to Day) 
-  - Mix Image Generation 
-Output Image Resolution 
-- Resolution: 
-- Upsampling Technique Used: 
-Experiment Process and Objectives:
-- Steps: 
-- Objectives: 
-Detection/Segmentation Models:
-Performance Improvements:
-- Tradeoff: 
-Suggested Questions:
+Methods or Models Used\n
+Dataset Used\n 
+- Name:\n 
+- Size:\n 
+  - Number of Images:\n 
+  - Resolution:\n 
+  - Instances:\n 
+Dataset Condition:\n 
+- Day, Night, Mix, Weather:\n 
+Domain Adaptation Technique:\n
+- Used: (is it used or not)\n 
+- Method:\n 
+  - D2N (Day to Night)\n 
+  - N2D (Night to Day)\n 
+  - Mix Image Generation\n 
+Output Image Resolution\n 
+- Resolution:\n 
+- Upsampling Technique Used:\n 
+Experiment Process and Objectives:\n
+- Steps:\n 
+- Objectives:\n 
+Detection/Segmentation Models:\n
+Performance Improvements:\n
+- Tradeoff:\n 
+Suggested Questions:\n
 """
 
 if option=='':
