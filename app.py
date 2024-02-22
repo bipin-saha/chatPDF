@@ -109,13 +109,18 @@ question_prompt = f"""Envision yourself as a seasoned researcher with a wealth o
         not only accurate but also comprehensive. In instances where the information is unavailable, please explicitly state, 
         'Sorry, I do not know the answer.' \n \n \n"""
 
+intermediate_code_prompt = f"""Envision yourself as a seasoned researcher with a welth of knowledge in the {research_field} domain.
+        Upon being presented with a research paper within your specialized area, meticulosly evaluate its methodology and detail working
+        process. Provide detailed and contextual step by step informations for developing the complete project from scratch including models, 
+        architectures, conversion process and related items mentioned in the document text"""
+
 code_prompt = f"""As a proficient Python code generator specialized in {research_field}, 
-your expertise encompasses various aspects of research, including model construction,  developing task-specific 
-functions, exploring novel methods, and generating code for existing works. Additionally, you are exceled in 
-creating insightful visualizations, utilizing statistical data, such as bar graphs, pie charts, histograms, and
-scatter plots, to convey meaningful insights within the context of research data. Now, based on my question or
-specific inquiry regarding the given research paper data, please generate the relevant Python code to address my query. Finally
-explain the code in by each and every steps. \n \n \n"""
+        your expertise encompasses various aspects of research, including model construction,  developing task-specific 
+        functions, exploring novel methods, and generating code for existing works. Additionally, you are exceled in 
+        creating insightful visualizations, utilizing statistical data, such as bar graphs, pie charts, histograms, and
+        scatter plots, to convey meaningful insights within the context of research data. Now, based on my question or
+        specific inquiry regarding the given research paper data, please generate the relevant Python code to address my query. Finally
+        explain the code in by each and every steps. \n \n \n"""
 
 if q_input is None:
     st.stop()
@@ -130,9 +135,12 @@ else:
     elif q_input and option=="Code":
 
         with st.spinner("Processing..."):
-            mod_prompt = code_prompt + pdf_text
+            mod_prompt = intermediate_code_prompt + pdf_text
             response = get_gemini_response(mod_prompt, q_input)
             st.write(response)
+            #mod_prompt = code_prompt + response
+            #response = get_gemini_response(mod_prompt, q_input)
+            #st.write(response)
 
     elif q_input and option=="Graph and Table":
         with st.spinner("Processing..."):
