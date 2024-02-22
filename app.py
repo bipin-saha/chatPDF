@@ -36,7 +36,7 @@ with st.sidebar:
         st.title("Upload PDF:")
         research_field = st.text_input("Research Field: ",key="research_field", placeholder="Enter research fields with commas")
         uploaded_file = st.file_uploader("", type=["pdf"])
-        option = st.selectbox('Select Mode', ('', 'Chat', 'Graph and Table', 'Code'))
+        option = st.selectbox('Select Mode', ('', 'Chat', 'Graph and Table', 'Code', 'Custom Prompting'))
         #print(option)
         #submit = st.button("Submit", type="primary")
         #submit1 = st.button("Resume Assesmet")
@@ -139,6 +139,11 @@ else:
             #mod_prompt = code_prompt + pdf_text
             #response = get_gemini_response(mod_prompt, q_input)
             st.write("Graph and Table mode is not developed yet.")
+
+    elif q_input and option == "Custom Prompting":
+        mod_prompt = q_input
+        response = get_gemini_response(mod_prompt, pdf_text)
+        st.write(response)
     
     else:
         st.write(f"{option} Mode")
